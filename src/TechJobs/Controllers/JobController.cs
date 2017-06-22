@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TechJobs.Data;
 using TechJobs.ViewModels;
+using TechJobs.Models;
 
 namespace TechJobs.Controllers
 {
@@ -36,7 +37,14 @@ namespace TechJobs.Controllers
             // TODO #6 - Validate the ViewModel and if valid, create a 
             // new Job and add it to the JobData data store. Then
             // redirect to the Job detail (Index) action/view for the new Job.
-            
+            if (ModelState.IsValid)
+            {
+                
+                // jobData.Jobs.Add(newJob);
+
+                return Redirect("/Job?id=" + newJobViewModel.EmployerID);
+
+            }
             return View(newJobViewModel);
         }
     }
