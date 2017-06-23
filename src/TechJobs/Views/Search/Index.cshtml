@@ -1,6 +1,7 @@
 ﻿@model TechJobs.ViewModels.SearchJobsViewModel
 
 <h1>@Model.Title</h1>
+<div asp-validation-summary="All"></div>
 
 <form action="/Search/Results">
     <p>
@@ -43,20 +44,20 @@
             </tr>
             <tr>
                 <td>Employer</td>
-                <td>@job.Employer</td>
-            </tr>
+                <td><a href="/List/Jobs?column=Employer&value=@job.Employer">@job.Employer</a></td>
+</tr>
             <tr>
                 <td>Location</td>
-                <td>@job.Location</td>
+                <td><a href="/List/Jobs?column=Location&value=@job.Location">@job.Location</a></td>
             </tr>
             <tr>
                 <td>Skill</td>
-                <td>@job.CoreCompetency</td>
-            </tr>
+                <td><a href="/List/Jobs?column=CoreCompetency&value=@job.CoreCompetency">@job.CoreCompetency</a></td>
+</tr>
             <tr>
                 <td>Position Type</td>
-                <td>@job.PositionType</td>
-            </tr>
+                <td><a href="/List/Jobs?column=PositionType&value=@job.PositionType">@job.PositionType</a></td>
+</tr>
         </table>
     }
 }

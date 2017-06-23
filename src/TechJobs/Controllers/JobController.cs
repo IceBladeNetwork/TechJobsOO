@@ -1,7 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using TechJobs.Data;
 using TechJobs.ViewModels;
 using TechJobs.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace TechJobs.Controllers
 {
@@ -39,16 +43,21 @@ namespace TechJobs.Controllers
             // redirect to the Job detail (Index) action/view for the new Job.
             if (ModelState.IsValid)
             {
+                var jobs = JobData.GetInstance();
+                JobFieldData<Employer> field = jobs.Employers;
+                JobFieldData<Location> field2 = jobs.Locations;
+                JobFieldData<PositionType> field3 = jobs.PositionTypes;
+                JobFieldData<CoreCompetency> field4 = jobs.CoreCompetencies;
                 Job newJob = new Job
                 {
                     Name = newJobViewModel.Name,
-                    Employer = newJobViewModel,
-                    Location = [FromFormAttribute.ReferenceEquals.],
-                    PositionType = newJobViewModel.PositionTypes,
-                    CoreCompetency = newJobViewModel.CoreCompetencies
+                    Employer = field.Find(newJobViewModel.EmployerID),
+                    Location = field2.Find(newJobViewModel.LocationID),
+                    PositionType = field3.Find(newJobViewModel.PositionID),
+                    CoreCompetency = field4.Find(newJobViewModel.SkillID)
                 };
                 jobData.Jobs.Add(newJob);
-                var jobs = JobData.GetInstance();
+                
                 var id = jobs.Jobs.Count;
                 return Redirect("/Job?id=" + id);
             }
